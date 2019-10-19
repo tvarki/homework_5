@@ -15,20 +15,28 @@ func plus(s1:String, s2:String, osn : Int)->String{ //внешняя функц�
     var bDotPosition = -1
     
 //    guard getQuads(from: s1, osn: osn) != nil else {return "Error"}
-    let tmp : ([Int],Bool,Int)? = getQuads(from: s1, osn: osn)
-    guard tmp != nil else {return "Error"}
-    aQuads = tmp!.0
-    aNegative=tmp!.1
-    aDotPosition = tmp!.2
+    guard let tmp : ([Int],Bool,Int) = getQuads(from: s1, osn: osn) else {
+        print("1st string conains wrong symbol")
+        return "Error"
+    }
+//    guard tmp != nil else {return "Error"}
+    aQuads = tmp.0
+    aNegative=tmp.1
+    aDotPosition = tmp.2
     
-    let tmp2 : ([Int],Bool,Int)? = getQuads(from: s2, osn: osn)
-    guard tmp2 != nil else {return "Error"}
-    bQuads = tmp2!.0
-    bNegative=tmp2!.1
-    bDotPosition = tmp2!.2
-    let res: String? = add(a:aQuads, aDotPosition: aDotPosition ,b:bQuads, bDotPosition: bDotPosition, osn: osn)
-    guard res != nil else {return "add error"}
-    return(res!)
+    guard let tmp2 : ([Int],Bool,Int) = getQuads(from: s2, osn: osn) else {
+        print("2nd string conains wrong symbol")
+        return "Error"
+    }
+//     guard tmp2 != nil else {return "Error"}
+    bQuads = tmp2.0
+    bNegative=tmp2.1
+    bDotPosition = tmp2.2
+    
+    
+    guard let res: String = add(a:aQuads, aDotPosition: aDotPosition ,b:bQuads, bDotPosition: bDotPosition, osn: osn) else {return "add error"}
+    //    guard res != nil else {return "add error"}
+    return(res)
 }
 
 
@@ -112,10 +120,8 @@ func add(a: [Int],aDotPosition : Int,  b:[Int], bDotPosition: Int, osn:Int) -> S
     varReal = reverseArray(a: real.0)
     
     var resStr : String = ""
-    let realStr : String? = fillResStringFromArray(from: varReal)
-    let factionalStr : String? = fillResStringFromArray(from: varFractional)
-    guard realStr != nil , factionalStr != nil else {return nil}
-    resStr = realStr! + "." + factionalStr!
+    guard let realStr = fillResStringFromArray(from: varReal), let factionalStr = fillResStringFromArray(from: varFractional)else {return nil}
+    resStr = realStr + "." + factionalStr
     return resStr
 }
 
