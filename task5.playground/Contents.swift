@@ -1,6 +1,76 @@
 import UIKit
 
 
+
+
+struct Num<Element>{
+   func sum(_ first : Element, _ second : Element)-> Element?{
+        return nil
+    }
+}
+ 
+extension Num where Element == String{
+    func sum(_ first : Element, _ second : Element)-> Element{
+           return first + second
+       }
+}
+
+extension Num where Element : Numeric{
+    func sum(_ first : Element, _ second : Element)-> Element{
+           return first + second
+       }
+}
+
+
+
+
+
+
+
+
+var tmp3 = Num<Int>()
+tmp3.sum(123, 321)
+
+var tmp4 = Num<Double>()
+tmp4.sum(123.11, 321.21)
+
+var tmp5 = Num<String>()
+tmp5.sum("123.11", "321.21")
+
+var tmp6 = Num<Bool>()
+tmp6.sum(true, false)
+
+
+
+
+struct Num2<Element, SetElement>{
+   func sum(_ first : Element, _ second : Element)-> Element?{
+        return nil
+    }
+}
+ 
+ extension Num2 where Element == Set<SetElement>{
+     
+     func sum(_ first : Element, _ second : Element)-> Element{
+         var res = first
+         for tmp in second {
+             res.insert(tmp)
+         }
+         return res
+     }
+ }
+
+ 
+var tmp7 = Num2<Set<Int>, Int>()
+tmp7.sum([5,6] , [1,2,3,4,8,7])
+ 
+ 
+
+
+
+
+//все сделанное после этого делалось до лекции о дженериках - длинная арифметика с дробями и системами счисления до 16
+
 func plus(s1:String, s2:String, osn : Int)->String{ //внешняя функция
     guard osn>1 , osn<=16 else {
         return "Поддерживаются только системы считсления с основанием 16 или менее."
